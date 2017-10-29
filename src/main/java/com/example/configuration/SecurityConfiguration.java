@@ -29,11 +29,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userService;
 	
-	@Value("${spring.queries.users-query}")
+	/*@Value("${spring.queries.users-query}")
 	private String usersQuery;
 	
 	@Value("${spring.queries.roles-query}")
-	private String rolesQuery;
+	private String rolesQuery;*/
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
@@ -60,7 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and().csrf().disable()
 				.formLogin().loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin/home")
+//				.defaultSuccessUrl("/admin/home")
+				.defaultSuccessUrl("/")
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and().logout()

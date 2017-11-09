@@ -2,8 +2,11 @@ package com.example.domain;
 
 import com.example.json.JsonDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class Post {
     @Id
     @GeneratedValue
     private Long id;
+    @NotEmpty
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -23,9 +27,12 @@ public class Post {
 
     @Column(columnDefinition = "TEXT")
     private String teaser;
+    @NotEmpty
     private String slug;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "M/dd/yyyy hh:mm:ss a")
     private Date postedOn;
     private Boolean active;
 

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -56,6 +57,19 @@ public class AdminPostController {
             return "redirect:/admin/post/" + savePost.getId();
         }
 
+    }
+    @RequestMapping("admin/post/edit/{id}")
+    public String edit(@PathVariable Long id, Model model){
+        model.addAttribute("post", postService.get(id));
+        model.addAttribute("authors",authorService.list());
+        return "admin/post/postForm";
+
+    }
+    @RequestMapping("admin/post/delete/{id}")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+        postService.delete(id);
+        attributes.addFlashAttribute("message", "Post Was Deleted.");
+        return "redirect:/admin/posts";
     }
 
 }
